@@ -4,7 +4,7 @@ import mne
 import matplotlib.pyplot as plt
 import sklearn
 
-
+# 전처리한 csv 불러오기
 def data_loading(path, subject_num, day, expt) :
   preprocessed_data=pd.read_csv(path + "S%d_DAY%d_EXPT%d_DRIVE_preprocess2.csv" %(subject_num, day, expt))
   #preprocessed_data=preprocessed_data.drop(["Unnamed: 0"],axis=1) # preprocess 다시 돌려서 나온 데이터 사용시 이부분 제거
@@ -12,6 +12,7 @@ def data_loading(path, subject_num, day, expt) :
   eeg_col_names = list(preprocessed_data.columns)  # list로
   return preprocessed_data, eeg_data, eeg_col_names # name에는 time이 포함되어 있음
 
+# array형식으로 만들기
 def create_array(dfdata, col_names, fs, ch_types, scale = 1) : 
   info = mne.create_info(ch_names = col_names, sfreq = fs, ch_types = ch_types)
   temp = dfdata.values
@@ -19,6 +20,7 @@ def create_array(dfdata, col_names, fs, ch_types, scale = 1) :
   s_array = mne.io.RawArray(temp, info)
   return s_array
 
+# bandpass filtering 수행하기
 def bandpass_filter(arrdata, preprocessed_data) :
   filtered_data = arrdata.filter(l_freq = 1., h_freq=50.,  picks='eeg', fir_design='firwin', skip_by_annotation='edge')
   
@@ -30,6 +32,7 @@ def bandpass_filter(arrdata, preprocessed_data) :
   filtered_df_trigger['TRIGGER(DIGITAL)'] = preprocessed_data['TRIGGER(DIGITAL)']
   return filtered_data, filtered_df, filtered_df_trigger
   
+# plot 보여주는 함수
 def show_plot(arrdata) :
   arrdata.plot()
   plt.show()
@@ -52,6 +55,8 @@ s_array = create_array(eeg_data, ch_names, fs, ch_types, scale = (1e-6))
 montage = mne.channels.make_standard_montage("standard_1005")
 s_array.set_montage(montage = montage)
 
-
 filtered_arr, filter_df, filter_df_trigger = bandpass_filter(s_array, preprocessed_data)
-show_plot(filtered_arr)
+#show_plot(filtered_arr)
+
+print(filtered_df)
+pred = filtered_df.iloc[:, 0:28]
