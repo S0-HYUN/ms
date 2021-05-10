@@ -6,8 +6,8 @@ import sklearn
 
 # 전처리한 csv 불러오기
 def data_loading(path, subject_num, day, expt) :
-  preprocessed_data=pd.read_csv(path + "S%d_DAY%d_EXPT%d_DRIVE_preprocess2.csv" %(subject_num, day, expt))
-  #preprocessed_data=preprocessed_data.drop(["Unnamed: 0"],axis=1) # preprocess 다시 돌려서 나온 데이터 사용시 이부분 제거
+  preprocessed_data=pd.read_csv(path + "S%d_DAY%d_EXPT%d_DRIVE_preprocess.csv" %(subject_num, day, expt))
+  preprocessed_data=preprocessed_data.drop(["Unnamed: 0"],axis=1) # preprocess 다시 돌려서 나온 데이터 사용시 이부분 제거
   eeg_time_data = preprocessed_data.drop(["Packet Counter(DIGITAL)","ECG.(uV)","Resp.(Ω)",   "PPG(ADU)",   "GSR(Ω)","TRIGGER(DIGITAL)"], axis=1)
   eeg_data = preprocessed_data.drop(["Time (s)", "Packet Counter(DIGITAL)","ECG.(uV)","Resp.(Ω)",   "PPG(ADU)",   "GSR(Ω)","TRIGGER(DIGITAL)"], axis=1) # time이랑 packet counter column 제거
   eeg_col_names = list(preprocessed_data.columns)  # list로

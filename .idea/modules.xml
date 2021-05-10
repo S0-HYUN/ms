@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/ms.iml" filepath="$PROJECT_DIR$/.idea/ms.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/pythonProject.iml" filepath="$PROJECT_DIR$/.idea/pythonProject.iml" />
+>>>>>>> e97b5c8235f692bf522b644fe2e6996e4b39c576
     </modules>
   </component>
 </project>
